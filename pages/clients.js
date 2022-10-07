@@ -104,7 +104,7 @@ export default function Contact() {
             <br />
             <br />
 
-            <button type='login' className='px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700'> LOGIN
+            <button type='login' className='px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700'> LET'S GO!!! 
               {/* <Link href="/familytree">LOGIN!!!</Link> */}
             </button>
           </form>
