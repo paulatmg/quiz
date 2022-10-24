@@ -16,26 +16,83 @@ export default function Page({ subjectData, quizData }) {
   const increaseCount = () => setNewState(actualValue + 1);
 
 
-  const selectAnswer = (event) => setNewState({
-    ...actualValue,
-    currentQuestionId: actualValue.currentQuestionId + 1,
-    quizAnswers: actualValue.quizAnswers.concat([{
-      ...actualValue.quizData[actualValue.currentQuestionId],
-      selectedAnswer: event.target.dataset.answerid
-    }]
-    )
-  })
+  const selectAnswer = (event) => {
+    console.log("show answer: ", event.target.dataset.answerid)
+    setNewState({
+      ...actualValue,
+      currentQuestionId: actualValue.currentQuestionId + 1,
+      quizAnswers: actualValue.quizAnswers.concat([{
+        ...actualValue.quizData[actualValue.currentQuestionId],
+        selectedAnswer: event.target.dataset.answerid
+      }]
+      )
+    })
+  }
 
   console.log("actualValue:", actualValue);
   // console.log("QUIZ DATA:", quizData);
 
+  console.log("subjectData:", subjectData);
+
+
   return (
-    <div className='flex items-center justify-center min-h-screen'>
-      <Head>
-        <title>Programming</title>
-        <meta name='description' content='Contact us' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+    <div className="container">
+      <div className='flex items-center justify-center min-h-screen'>
+        <Head>
+          <title>Programming</title>
+          <meta name='description' content='Contact us' />
+          <link rel='icon' href='/favicon.ico' />
+        </Head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {!actualValue.quizData.length ?
+
+          <div>
+            <div className="row">
+              <div className="col"> </div>
+              <div className="col-6">
+                <h4> Select the Subject:</h4>
+                <form action="" method="GET">
+                  <select name="subject" id="subject">
+
+                    {/* {subjectData.map((item) => (
+                      <option value={item.subject}> {item.subject} </option>
+
+                    ))}; */}
+                    
+                    {subjectData.map(function(item){
+                      return <option value={item.subject}> {item.subject} </option>
+
+                    })
+                  }
+
+
+                </select>
+                <br />
+                <br />
+                <br />
+                <button type="submit"> SUBMIT! </button>
+
+              </form>
+            </div>
+            <div className="col"> </div>
+          </div>
+          </div>
+      :
+      null
+        }
 
       {actualValue.quizData.length && actualValue.quizData[actualValue.currentQuestionId] ?
         //? <ul>{quizData.map((option, index) => <li key={index}> {option.question}</li>)}</ul> : null}
@@ -43,24 +100,38 @@ export default function Page({ subjectData, quizData }) {
 
         <div>
           <div>
-            Select the correct answer: </div>
-          <br />
-
-          <div><b>Question number #{actualValue.currentQuestionId + 1} of #{actualValue.quizData.length}</b></div>
-          <br />
-
-          <div class="card text-white bg-info mb-30 w-50" styles="width: 18rem;">
-            <div class="card-header">
-              <h6> Question: {actualValue.quizData[actualValue.currentQuestionId].question} </h6>
+            <div className="text-center">
+              Select the correct answer: </div>
+            <br />
+            <div className="text-center">
+              <div><b>Question number #{actualValue.currentQuestionId + 1} of #{actualValue.quizData.length}</b></div>
+              <br />
             </div>
-
-            {/* <ul class="list-group list-group-flush"> */}
-            <ul class="list-group list-group-flush bg-white text-black" >
-
-              {actualValue.quizData[actualValue.currentQuestionId].answers.map((option, index) => <li data-answerid={index} onClick={selectAnswer} key={index}> <input type="radio" /> {option.description}</li>)}
-
-            </ul>
           </div>
+
+
+          <div className="row">
+            <div className="col"> </div>
+            <div className="col-6">
+
+              <div className="card text-white text-center bg-info" styles="width: 18rem;">
+                <div className="card-header">
+                  <h6> Question: {actualValue.quizData[actualValue.currentQuestionId].question} </h6>
+                </div>
+              </div>
+
+
+              <div> <ul className="card text-left list-group list-group-flush bg-white text-black border-info" style={{ "list-style-type": "none" }} >
+
+                {actualValue.quizData[actualValue.currentQuestionId].answers.map((option, index) => <li key={index}> <input type="radio" data-answerid={index} onClick={selectAnswer} /> {option.description}</li>)}
+
+              </ul>
+              </div>
+            </div>
+            <div className="col"> </div>
+          </div>
+
+
 
           {/* 
           <div class="card-header">
@@ -83,7 +154,7 @@ export default function Page({ subjectData, quizData }) {
               <li key={index}>
 
 
-                <div class="card text-white bg-info mb-30 w-50" styles="width: 18rem;">
+                <div className="card text-white bg-info mb-30 w-50" styles="width: 18rem;">
                   Question: {option.question}
                 </div>
 
@@ -119,58 +190,8 @@ export default function Page({ subjectData, quizData }) {
 
       }
 
-
-
-      {/* <div class="card text-white bg-info mb-30 w-50" styles="width: 18rem;">
-        <div class="card-header">
-          <h6> Question: {actualValue.quizData[actualValue.currentQuestionId].question} </h6>
-        </div>
-
-        <ul class="list-group list-group-flush">
-        <ul class="list-group list-group-flush bg-white text-black" >
-       
-            {actualValue.quizData[actualValue.currentQuestionId].answers.map((option, index) => <li data-answerid={index} onClick={selectAnswer} key={index}> <input type="radio" /> {option.description}</li>)}
-          
-        </ul>
-      </div> */}
-
-
-
-
-
-
-
-
-
-
-      {/* 
-      <div className='max-w-xs my-2 overflow-hidden rounded shadow-lg'>
-        <div className='px-6 py-4'>
-          <div className='mb-2 text-xl font-bold'>Type the subject</div>
-          <form className='flex flex-col' action="/quizPage" method="GET">
-
-            <br />
-            <br />
-
-            <select name="subject">
-
-              {subjectData.map((option, index) => <option key={index} value={option.subject}>{option.subject}</option>)}
-
-            </select>
-
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-
-            <button type='submit' className='px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700'> LET'S GO!!!
-              <Link href="/familytree">LOGIN!!!</Link>
-            </button>
-          </form>
-        </div>
-      </div> */}
     </div>
+    </div >
   );
 }
 
@@ -195,7 +216,7 @@ export async function getServerSideProps({ query }) {
 
 
 
-                    {/* <style jsx>{`
+{/* <style jsx>{`
         p {
           color: green;
         }
