@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Head from 'next/head';
 import 'bootstrap/dist/css/bootstrap.css';
-//import Link from 'next/link';
+import { withRouter } from "next/router";
+
+
 
 export default function Page({ subjectData, quizData }) {
 
@@ -29,15 +31,10 @@ export default function Page({ subjectData, quizData }) {
     })
   }
 
-  console.log("actualValue:", actualValue);
-  // console.log("QUIZ DATA:", quizData);
-
-  console.log("subjectData:", subjectData);
-
 
   return (
     <div className="container">
-      <div className='flex items-center justify-center min-h-screen'>
+      <div className="flex items-center justify-center min-h-screen">
         <Head>
           <title>Programming</title>
           <meta name='description' content='Contact us' />
@@ -47,151 +44,141 @@ export default function Page({ subjectData, quizData }) {
 
 
 
-
-
-
-
-
-
-
-
-
-
         {!actualValue.quizData.length ?
 
           <div>
             <div className="row">
               <div className="col"> </div>
-              <div className="col-6">
+              <div className="card-header card text-white bg-info mb-3 col-3">
                 <h4> Select the Subject:</h4>
                 <form action="" method="GET">
-                  <select name="subject" id="subject">
+                  <select name="subject" id="subject" className="btn btn-secondary dropdown-toggle">
 
                     {/* {subjectData.map((item) => (
                       <option value={item.subject}> {item.subject} </option>
 
                     ))}; */}
-                    
-                    {subjectData.map(function(item){
+
+                    {subjectData.map(function (item) {
                       return <option value={item.subject}> {item.subject} </option>
 
                     })
-                  }
+                    }
 
 
-                </select>
-                <br />
-                <br />
-                <br />
-                <button type="submit"> SUBMIT! </button>
+                  </select>
+                  <br />
+                  <br />
+                  <br />
+                  <button type="submit" className="btn btn-outline-warning bg-light"> SUBMIT! </button>
 
-              </form>
+                </form>
+              </div>
+              <div className="col"> </div>
             </div>
-            <div className="col"> </div>
           </div>
-          </div>
-      :
-      null
+          :
+          null
         }
 
-      {actualValue.quizData.length && actualValue.quizData[actualValue.currentQuestionId] ?
-        //? <ul>{quizData.map((option, index) => <li key={index}> {option.question}</li>)}</ul> : null}
+        {actualValue.quizData.length && actualValue.quizData[actualValue.currentQuestionId] ?
+          //? <ul>{quizData.map((option, index) => <li key={index}> {option.question}</li>)}</ul> : null}
 
 
-        <div>
           <div>
-            <div className="text-center">
-              Select the correct answer: </div>
-            <br />
-            <div className="text-center">
-              <div><b>Question number #{actualValue.currentQuestionId + 1} of #{actualValue.quizData.length}</b></div>
+            <div>
+              <div className="text-center">
+                Select the correct answer: </div>
               <br />
+              <div className="text-center">
+                <div><b>Question number #{actualValue.currentQuestionId + 1} of #{actualValue.quizData.length}</b></div>
+                <br />
+              </div>
             </div>
-          </div>
 
 
-          <div className="row">
-            <div className="col"> </div>
-            <div className="col-6">
+            <div className="row">
+              <div className="col"> </div>
+              <div className="col-6">
 
-              <div className="card text-white text-center bg-info" styles="width: 18rem;">
-                <div className="card-header">
-                  <h6> Question: {actualValue.quizData[actualValue.currentQuestionId].question} </h6>
+                <div className="card text-white text-center bg-info" styles="width: 18rem;">
+                  <div className="card-header">
+                    <h6> Question: {actualValue.quizData[actualValue.currentQuestionId].question} </h6>
+                  </div>
+                </div>
+
+
+                <div> <ul className="card text-left list-group list-group-flush bg-white text-black border-info" style={{ "listStyleType": "none" }} >
+
+                  {actualValue.quizData[actualValue.currentQuestionId].answers.map((option, index) => <li key={index}> <input type="radio" data-answerid={index} onClick={selectAnswer} /> {option.description}</li>)}
+
+                </ul>
                 </div>
               </div>
-
-
-              <div> <ul className="card text-left list-group list-group-flush bg-white text-black border-info" style={{ "list-style-type": "none" }} >
-
-                {actualValue.quizData[actualValue.currentQuestionId].answers.map((option, index) => <li key={index}> <input type="radio" data-answerid={index} onClick={selectAnswer} /> {option.description}</li>)}
-
-              </ul>
-              </div>
+              <div className="col"> </div>
             </div>
-            <div className="col"> </div>
           </div>
 
+          : null
 
+        }
 
-          {/* 
-          <div class="card-header">
-            <h6>Question: {actualValue.quizData[actualValue.currentQuestionId].question}</h6></div>
+        {actualValue.quizData.length && !actualValue.quizData[actualValue.currentQuestionId] ?
 
-          <div><ul>{actualValue.quizData[actualValue.currentQuestionId].answers.map((option, index) => <li data-answerid={index} onClick={selectAnswer} key={index}> {option.description}</li>)}</ul></div>
-
-          <button disabled >Submit answers</button> */}
-        </div>
-
-        : null
-
-      }
-
-      {actualValue.quizData.length && !actualValue.quizData[actualValue.currentQuestionId] ?
-
-        <div>
           <div>
-            <ul>{actualValue.quizAnswers.map((option, index) => (
-              <li key={index}>
+            <div>
+              <ul>{actualValue.quizAnswers.map((option, index) => (
+                <li key={index}>
 
 
-                <div className="card text-white bg-info mb-30 w-50" styles="width: 18rem;">
-                  Question: {option.question}
-                </div>
-
-                <div>
-                  <b>Answers:</b>
-                </div>
-
-                {option.answers.map((answer, index) => (
-
-                  <div key={index}>
-
-                    {index === Number(option.selectedAnswer) ? "SELECTED: " : null}
-
-                    {answer.isCorrect ? "CORRECT: " : null}
-
-                    {answer.description}
+                  <div className="card text-white bg-info mb-30 w-50" styles="width: 18rem;">
+                    Question: {option.question}
                   </div>
 
+                  <div>
+                    <b>Answers:</b>
+                  </div>
 
-                ))}
+                  {option.answers.map((answer, index) => (
 
-              </li>
+                    <div key={index}>
 
-            )
-            )}
-            </ul>
+                      <div className="text-muted">
+                        {index === Number(option.selectedAnswer) ? "SELECTED: " : null}
+
+
+                        <div className="text-success">
+                          {answer.isCorrect ? "CORRECT: " : null}
+
+                          <div className="text-dark">
+                            {answer.description}
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+                  ))}
+
+                </li>
+
+              )
+              )}
+              </ul>
+            </div>
+
+
           </div>
 
+          : null
 
-        </div>
+        }
 
-        : null
-
-      }
-
+      </div>
     </div>
-    </div >
   );
 }
 
@@ -213,11 +200,3 @@ export async function getServerSideProps({ query }) {
   return { props: { subjectData, quizData } }
 }
 
-
-
-
-{/* <style jsx>{`
-        p {
-          color: green;
-        }
-      `}</style> */}
