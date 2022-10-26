@@ -12,13 +12,15 @@
     "@formspree/react": "^2.4.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.2",
+    "css": "^3.0.0",
     "moment": "^2.29.4",
     "mysql": "^2.18.1",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "reactstrap": "^9.1.4",
-    "serverless-mysql": "^1.5.4"
+    "serverless-mysql": "^1.5.4",
+    "style": "^0.0.3"
   },
   "devDependencies": {
     "eslint": "8.23.0",

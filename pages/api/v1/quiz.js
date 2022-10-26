@@ -1,4 +1,3 @@
-
 import { fetchDBDetails } from '../../../helpers/dataBase';
 
 
@@ -25,9 +24,6 @@ export default async function handler(req, res) {
     for (let i = 0; i < responses.length; i++) {
         const currentResponse = responses[i];
 
-        //console.log("currentResponse::::", currentResponse);
-
-
 
         if (!quiz.find((data) => data.question === currentResponse.question)) {
 
@@ -47,7 +43,6 @@ export default async function handler(req, res) {
 
 
     res.status(200).json(shuffle(quiz));
-    //res.status(200).json(quiz);
 }
 
 

@@ -2,6 +2,8 @@ import { useState } from "react";
 import Head from 'next/head';
 import 'bootstrap/dist/css/bootstrap.css';
 import { withRouter } from "next/router";
+import styles from '../styles/Home.module.css'
+
 
 
 
@@ -33,95 +35,105 @@ export default function Page({ subjectData, quizData }) {
 
 
   return (
-    <div className="container">
+
+    <div className={styles.homepage}>
       <div className="flex items-center justify-center min-h-screen">
         <Head>
           <title>Programming</title>
-          <meta name='description' content='Contact us' />
-          <link rel='icon' href='/favicon.ico' />
         </Head>
 
 
 
 
         {!actualValue.quizData.length ?
-
+          // <div className={styles.homepage} >
           <div>
             <div className="row">
-              <div className="col"> </div>
-              <div className="card-header card text-white bg-info mb-3 col-3">
+              {/* <div className="col"> </div> */}
+              <div className={styles.h4}>
                 <h4> Select the Subject:</h4>
                 <form action="" method="GET">
-                  <select name="subject" id="subject" className="btn btn-secondary dropdown-toggle">
+                  
+                    
+                    <select name="subject" id="subject" className="btn btn-secondary dropdown-toggle">
 
-                    {/* {subjectData.map((item) => (
+                      {/* {subjectData.map((item) => (
                       <option value={item.subject}> {item.subject} </option>
 
                     ))}; */}
+                     
+                        {subjectData.map(function (item) {
+                          return <option value={item.subject}> {item.subject} </option>
 
-                    {subjectData.map(function (item) {
-                      return <option value={item.subject}> {item.subject} </option>
-
-                    })
-                    }
+                        })
+                        }
+                      
 
 
-                  </select>
+                    </select>
+
+                 
                   <br />
                   <br />
                   <br />
-                  <button type="submit" className="btn btn-outline-warning bg-light"> SUBMIT! </button>
+                  <button type="submit" className={styles.button}> SUBMIT! </button>
 
                 </form>
               </div>
-              <div className="col"> </div>
             </div>
+            {/* <div className="col"> </div> */}
           </div>
+          // </div>
           :
           null
         }
 
+
         {actualValue.quizData.length && actualValue.quizData[actualValue.currentQuestionId] ?
           //? <ul>{quizData.map((option, index) => <li key={index}> {option.question}</li>)}</ul> : null}
 
-
-          <div>
+          <div className={styles.body}>
             <div>
-              <div className="text-center">
-                Select the correct answer: </div>
-              <br />
-              <div className="text-center">
-                <div><b>Question number #{actualValue.currentQuestionId + 1} of #{actualValue.quizData.length}</b></div>
-                <br />
+              <div>
+                <div className={styles.h6}>
+                  <h6> Select the correct answer: </h6>
+                  <br />
+                </div>
+                <div className={styles.h5}>
+                  <h5><b>Question number #{actualValue.currentQuestionId + 1} of #{actualValue.quizData.length}</b></h5>
+                  <br />
+                </div>
               </div>
-            </div>
 
 
-            <div className="row">
-              <div className="col"> </div>
-              <div className="col-6">
+              <div className="row">
+                <div className="col"> </div>
+                <div className="col-6">
 
-                <div className="card text-white text-center bg-info" styles="width: 18rem;">
-                  <div className="card-header">
-                    <h6> Question: {actualValue.quizData[actualValue.currentQuestionId].question} </h6>
+                  <div className={styles.card}>
+                    <div> Question: {actualValue.quizData[actualValue.currentQuestionId].question} </div>
+                  </div>
+
+                  <div className={styles.cardAnswers}>
+                    <div> <ul
+                      // className="card text-left list-group list-group-flush bg-white text-black border-info" 
+                      style={{ "listStyleType": "none" }} >
+
+                      {actualValue.quizData[actualValue.currentQuestionId].answers.map((option, index) => <li key={index}> <input type="radio" data-answerid={index} onClick={selectAnswer} /> {option.description}</li>)}
+
+                    </ul>
+                    </div>
                   </div>
                 </div>
-
-
-                <div> <ul className="card text-left list-group list-group-flush bg-white text-black border-info" style={{ "listStyleType": "none" }} >
-
-                  {actualValue.quizData[actualValue.currentQuestionId].answers.map((option, index) => <li key={index}> <input type="radio" data-answerid={index} onClick={selectAnswer} /> {option.description}</li>)}
-
-                </ul>
-                </div>
+                <div className="col"> </div>
               </div>
-              <div className="col"> </div>
             </div>
           </div>
 
           : null
 
         }
+
 
         {actualValue.quizData.length && !actualValue.quizData[actualValue.currentQuestionId] ?
 
@@ -131,7 +143,7 @@ export default function Page({ subjectData, quizData }) {
                 <li key={index}>
 
 
-                  <div className="card text-white bg-info mb-30 w-50" styles="width: 18rem;">
+                  <div className="card text-white bg-info mb-30 w-50" styles="width: 18rem">
                     Question: {option.question}
                   </div>
 
@@ -179,6 +191,7 @@ export default function Page({ subjectData, quizData }) {
 
       </div>
     </div>
+
   );
 }
 
