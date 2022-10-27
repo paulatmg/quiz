@@ -122,15 +122,15 @@
 }
 
 .h6 {
-  margin-left: 30em;
+  margin-left: 42em;
   color: white;
   position: relative;
   }
 
 
 .h5 {
-  margin-top: 10em; 
-  margin-left: 30em;
+  margin-top: 3em; 
+  margin-left: 40em;
   color: white;
   position: relative;
 }
@@ -151,6 +151,7 @@
   text-align: center;
   font-size: 16px;
   background-color: white;
+  color:rgb(0, 0, 0);
 }
 
 .button:hover {
@@ -164,8 +165,6 @@
   position: relative;
   height: 100vh;
   width: 100vw;
- 
- 
 }
 
 .cardAnswers {
@@ -182,64 +181,6 @@
   max-width: 700px;
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
-}
-
 
 
 .dropbtn {
@@ -281,3 +222,91 @@
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+
+.answersPage {
+  background-color: white;
+  background-size: cover;
+  position: relative;
+  height: 10vh;
+  width: 100vw;
+
+  margin: 2rem;
+  padding: 1.5rem;
+  text-align: left;
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+  background-color: lightgrey;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  max-width: 400px;
+}
+
+
+
+
+
+.cardAnswersSelected {
+  margin-bottom: 2rem;
+  margin-left:  25rem;
+  padding: 1.5rem;
+  text-align: left;
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+  background-color: lightgrey;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  max-width: 700px;
+  
+}
+
+
+
+
+
+.finalPage {
+  background-image: url("../public/img/blackbrick.jpg");
+  background-size: cover;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-repeat: repeat-y;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .card,
+  .footer {
+    border-color: #222;
+  }
+  .code {
+    background: #111;
+  }
+  .logo img {
+    filter: invert(1);
+  }
+}
+
+
+

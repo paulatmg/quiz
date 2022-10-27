@@ -53,26 +53,26 @@ export default function Page({ subjectData, quizData }) {
               <div className={styles.h4}>
                 <h4> Select the Subject:</h4>
                 <form action="" method="GET">
-                  
-                    
-                    <select name="subject" id="subject" className="btn btn-secondary dropdown-toggle">
 
-                      {/* {subjectData.map((item) => (
+
+                  <select name="subject" id="subject" className="btn btn-secondary dropdown-toggle">
+
+                    {/* {subjectData.map((item) => (
                       <option value={item.subject}> {item.subject} </option>
 
                     ))}; */}
-                     
-                        {subjectData.map(function (item) {
-                          return <option value={item.subject}> {item.subject} </option>
 
-                        })
-                        }
-                      
+                    {subjectData.map(function (item) {
+                      return <option value={item.subject}> {item.subject} </option>
+
+                    })
+                    }
 
 
-                    </select>
 
-                 
+                  </select>
+
+
                   <br />
                   <br />
                   <br />
@@ -95,6 +95,17 @@ export default function Page({ subjectData, quizData }) {
           <div className={styles.body}>
             <div>
               <div>
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
                 <div className={styles.h6}>
                   <h6> Select the correct answer: </h6>
                   <br />
@@ -136,65 +147,64 @@ export default function Page({ subjectData, quizData }) {
 
 
         {actualValue.quizData.length && !actualValue.quizData[actualValue.currentQuestionId] ?
-
-          <div>
+          <div className={styles.finalPage}>
             <div>
-              <ul>{actualValue.quizAnswers.map((option, index) => (
-                <li key={index}>
+              <div>
+                <ul
+                  style={{ "listStyleType": "none" }} >
+                  {actualValue.quizAnswers.map((option, index) => (
+                    <li key={index}>
 
 
-                  <div className="card text-white bg-info mb-30 w-50" styles="width: 18rem">
-                    Question: {option.question}
-                  </div>
-
-                  <div>
-                    <b>Answers:</b>
-                  </div>
-
-                  {option.answers.map((answer, index) => (
-
-                    <div key={index}>
-
-                      <div className="text-muted">
-                        {index === Number(option.selectedAnswer) ? "SELECTED: " : null}
+                      <div className={styles.cardAnswersSelected}>
+                        Question: {option.question}
+                        <br />
+                        <br />
+                        <b>Answers:</b>
+                        <br />
+                        <br />
 
 
-                        <div className="text-success">
-                          {answer.isCorrect ? "CORRECT: " : null}
 
-                          <div className="text-dark">
-                            {answer.description}
+                        {option.answers.map((answer, index) => (
 
+                          <div key={index}>
+
+                            <div className="text-muted">
+                              {index === Number(option.selectedAnswer) ? "SELECTED: " : null}
+
+
+                              <div className="text-success">
+                                {answer.isCorrect ? "CORRECT: " : null}
+
+                                <div className="text-dark">
+                                  {answer.description}
+
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+
+
+                        ))}
                       </div>
-                    </div>
+                    </li>
+                  )
+                  )}
+                </ul>
 
-
-
-
-                  ))}
-
-                </li>
-
-              )
-              )}
-              </ul>
+              </div>
             </div>
-
-
           </div>
-
           : null
 
         }
 
       </div>
     </div>
-
   );
-}
 
+}
 
 
 export async function getServerSideProps({ query }) {
