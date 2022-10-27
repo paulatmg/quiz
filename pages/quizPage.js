@@ -95,17 +95,17 @@ export default function Page({ subjectData, quizData }) {
           <div className={styles.body}>
             <div>
               <div>
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
                 <div className={styles.h6}>
                   <h6> Select the correct answer: </h6>
                   <br />
@@ -148,53 +148,62 @@ export default function Page({ subjectData, quizData }) {
 
         {actualValue.quizData.length && !actualValue.quizData[actualValue.currentQuestionId] ?
           <div className={styles.finalPage}>
-            <div>
-              <div>
-                <ul
-                  style={{ "listStyleType": "none" }} >
-                  {actualValue.quizAnswers.map((option, index) => (
-                    <li key={index}>
+            <ul
+              style={{ "listStyleType": "none" }} >
+              {actualValue.quizAnswers.map((option, index) => (
+                <li key={index}>
 
 
-                      <div className={styles.cardAnswersSelected}>
-                        Question: {option.question}
+                  <div className={styles.cardAnswersSelected}>
+                    <b>Question: {option.question}</b>
+                    <br />
+                    <br />
+                    {/* <b>Answers:</b>
                         <br />
-                        <br />
-                        <b>Answers:</b>
-                        <br />
-                        <br />
+                        <br /> */}
+
+                    {option.answers.map((answer, index) => (
+
+                      <div key={index}>
+
+                        <div className={styles.textFailed}>
+                          {index === Number(option.selectedAnswer) && !answer.isCorrect ? "YOUR ANSWER: " : null}
+                        </div>
+
+                        <div className={styles.textSuccess}>
+                          {answer.isCorrect ? "CORRECT: " : null}
+                        </div>
+
+                        {answer.description}
+
+                      </div>
+
+                    ))}
 
 
-
+                    {/* 
                         {option.answers.map((answer, index) => (
 
                           <div key={index}>
 
-                            <div className="text-muted">
-                              {index === Number(option.selectedAnswer) ? "SELECTED: " : null}
+
+                            {index === Number(option.selectedAnswer) ? "YOUR ANSWER: " : null}
 
 
-                              <div className="text-success">
-                                {answer.isCorrect ? "CORRECT: " : null}
-
-                                <div className="text-dark">
-                                  {answer.description}
-
-                                </div>
-                              </div>
+                            <div className={styles.textSuccess}>
+                              {answer.isCorrect ? "CORRECT: " : null}
                             </div>
+
+                            {answer.description}
+
                           </div>
 
-
-                        ))}
-                      </div>
-                    </li>
-                  )
-                  )}
-                </ul>
-
-              </div>
-            </div>
+                        ))} */}
+                  </div>
+                </li>
+              )
+              )}
+            </ul>
           </div>
           : null
 
