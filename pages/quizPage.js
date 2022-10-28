@@ -5,11 +5,20 @@ import { withRouter } from "next/router";
 import styles from '../styles/Home.module.css'
 
 
+function formatAnswer(answer, currentQuestion, index) {
+  let answerStyle;
+
+  if (index === Number(currentQuestion.selectedAnswer) && !answer.isCorrect) {
+    answerStyle = styles.textFailed;
+  }
+  else if (answer.isCorrect) {
+    answerStyle = styles.textSuccess;
+  }
+  return answerStyle
+}
 
 
 export default function Page({ subjectData, quizData }) {
-
-
   const [actualValue, setNewState] = useState({
     quizData,
     currentQuestionId: 0,
@@ -35,23 +44,29 @@ export default function Page({ subjectData, quizData }) {
 
 
   return (
-
     <div className={styles.homepage}>
       <div className="flex items-center justify-center min-h-screen">
         <Head>
           <title>Programming</title>
         </Head>
 
-
-
-
-        {!actualValue.quizData.length ?
+        <div className="container">
+          <div className="row">
+            <div className="col-lg"></div>
+            <div className="col-lg">
+              <div className="row">
+                <div className="col-lg-12">
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-12">
+                {!actualValue.quizData.length ?
           // <div className={styles.homepage} >
           <div>
             <div className="row">
-              {/* <div className="col"> </div> */}
+              <div className="col"> </div>
               <div className={styles.h4}>
-                <h4> Select the Subject:</h4>
+                <h4>Select the Subject:</h4>
                 <form action="" method="GET">
 
 
@@ -81,7 +96,7 @@ export default function Page({ subjectData, quizData }) {
                 </form>
               </div>
             </div>
-            {/* <div className="col"> </div> */}
+            <div className="col"> </div>
           </div>
           // </div>
           :
@@ -147,58 +162,31 @@ export default function Page({ subjectData, quizData }) {
 
 
         {actualValue.quizData.length && !actualValue.quizData[actualValue.currentQuestionId] ?
+
+        
           <div className={styles.finalPage}>
             <ul
               style={{ "listStyleType": "none" }} >
-              {actualValue.quizAnswers.map((option, index) => (
+              {actualValue.quizAnswers.map((currentQuestion, index) => (
                 <li key={index}>
 
 
                   <div className={styles.cardAnswersSelected}>
-                    <b>Question: {option.question}</b>
+                    <b>Question: {currentQuestion.question}</b>
                     <br />
                     <br />
-                    {/* <b>Answers:</b>
-                        <br />
-                        <br /> */}
 
-                    {option.answers.map((answer, index) => (
+                    {currentQuestion.answers.map((answer, index) => (
 
                       <div key={index}>
 
-                        <div className={styles.textFailed}>
-                          {index === Number(option.selectedAnswer) && !answer.isCorrect ? "YOUR ANSWER: " : null}
+                        <div className={formatAnswer (answer, currentQuestion, index)}>
+                         { index === Number(currentQuestion.selectedAnswer) ? "SELECTED: " : null } {answer.description}
                         </div>
-
-                        <div className={styles.textSuccess}>
-                          {answer.isCorrect ? "CORRECT: " : null}
-                        </div>
-
-                        {answer.description}
-
                       </div>
 
                     ))}
 
-
-                    {/* 
-                        {option.answers.map((answer, index) => (
-
-                          <div key={index}>
-
-
-                            {index === Number(option.selectedAnswer) ? "YOUR ANSWER: " : null}
-
-
-                            <div className={styles.textSuccess}>
-                              {answer.isCorrect ? "CORRECT: " : null}
-                            </div>
-
-                            {answer.description}
-
-                          </div>
-
-                        ))} */}
                   </div>
                 </li>
               )
@@ -208,6 +196,16 @@ export default function Page({ subjectData, quizData }) {
           : null
 
         }
+                </div>
+              </div>
+            </div>
+            <div className="col-lg">
+            </div>
+          </div>
+        </div>
+
+
+
 
       </div>
     </div>
