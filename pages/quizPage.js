@@ -5,6 +5,13 @@ import { withRouter } from "next/router";
 import styles from '../styles/Home.module.css'
 
 
+function totalCorrectAnswers(quizAnswers) {
+  return quizAnswers.reduce((accumulator, current) => {
+    return accumulator + (current.answers.find((answer, index) => index === Number(current.selectedAnswer) && answer.isCorrect) ? 1 : 0)
+  }, 0)
+}
+
+
 function formatAnswer(answer, currentQuestion, index) {
   let answerStyle;
 
@@ -26,11 +33,8 @@ export default function Page({ subjectData, quizData }) {
   });
 
 
-  const increaseCount = () => setNewState(actualValue + 1);
-
-
   const selectAnswer = (event) => {
-    console.log("show answer: ", event.target.dataset.answerid)
+    event.preventDefault();
     setNewState({
       ...actualValue,
       currentQuestionId: actualValue.currentQuestionId + 1,
@@ -44,155 +48,111 @@ export default function Page({ subjectData, quizData }) {
 
 
   return (
-    <div className={styles.homepage}>
-      {/* <div className="flex items-center justify-center min-h-screen"> */}
+    <div className={actualValue.quizData.length && actualValue.quizData[actualValue.currentQuestionId] ? styles.questionsBackground : styles.homepage}>
       <Head>
         <title>Programming</title>
       </Head>
 
-      <div className="container">
-        <div className="row">
+      <div className="container-fluid vh-100">
+        <div className="row"> </div>
+        <div className={`row ${actualValue.quizData.length && !actualValue.quizData[actualValue.currentQuestionId] ? styles.finalPage : null}`}>
           <div className="col-lg"></div>
           <div className="col-lg">
-            <div className="row">
-              <div className="col-lg-12">
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-12">
-                {!actualValue.quizData.length ?
-                  // <div className={styles.homepage} >
-                  <div>
-                    <div className="row">
-                      <div className="col"> </div>
-                      <div className={styles.h4}>
-                        <h4><b>Select the Subject:</b></h4>
-                        <br />
-                        <form action="" method="GET">
+            {!actualValue.quizData.length ?
+              <div className={styles.h4}>
+                <h4><b>Select the Subject:</b></h4>
+                <br />
+                <form action="" method="GET">
 
 
-                          <select name="subject" id="subject" className="btn btn-secondary dropdown-toggle">
+                  <select name="subject" id="subject" className="btn btn-secondary dropdown-toggle">
 
-                            {/* {subjectData.map((item) => (
+                    {/* {subjectData.map((item) => (
                       <option value={item.subject}> {item.subject} </option>
 
                     ))}; */}
 
-                            {subjectData.map(function (item) {
-                              return <option value={item.subject}> {item.subject} </option>
+                    {subjectData.map(function (item) {
+                      return <option value={item.subject}> {item.subject} </option>
 
-                            })
-                            }
-
-
-
-                          </select>
+                    })
+                    }
 
 
-                          <br />
-                          <br />
-                          <br />
-                          <button type="submit" className={styles.button}> SUBMIT! </button>
 
-                        </form>
-                      </div>
-                    </div>
-                    <div className="col"> </div>
-                  </div>
-                  // </div>
-                  :
-                  null
-                }
+                  </select>
 
 
-                {actualValue.quizData.length && actualValue.quizData[actualValue.currentQuestionId] ?
-                  //? <ul>{quizData.map((option, index) => <li key={index}> {option.question}</li>)}</ul> : null}
+                  <br />
+                  <br />
+                  <br />
+                  <button type="submit" className={styles.button}> SUBMIT! </button>
 
-                  <div className={styles.body}>
-                    <div>
-                      <div className={styles.h6}>
-                        <h6> Select the correct answer: </h6>
-                      </div>
-                      <div className={styles.h5}>
-                        <h5><b>Question number #{actualValue.currentQuestionId + 1} of #{actualValue.quizData.length}</b></h5>
-                        <br />
-                      </div>
-                    </div>
-
-
-                    <div className="row">
-                      <div className="col"> </div>
-                      <div className="col-6">
-
-                        <div className={styles.card}>
-                          <div> Question: {actualValue.quizData[actualValue.currentQuestionId].question} </div>
-                        </div>
-
-                        <div className={styles.cardAnswers}>
-                          <div>
-                            <ul style={{ "listStyleType": "none" }} >
-
-                              {actualValue.quizData[actualValue.currentQuestionId].answers.map((option, index) => <li key={index}> <input type="radio" data-answerid={index} onClick={selectAnswer} /> {option.description}</li>)}
-
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col"> </div>
-                    </div>
-                  </div>
-
-
-                  : null
-
-                }
-
-
-                {actualValue.quizData.length && !actualValue.quizData[actualValue.currentQuestionId] ?
-
-
-                  <div className={styles.finalPage}>
-                    <ul style={{ "listStyleType": "none" }} >
-                      {actualValue.quizAnswers.map((currentQuestion, index) => (
-                        <li key={index}>
-
-
-                          <div className={styles.cardSelectedAnswers}>
-                            <b>Question: {currentQuestion.question}</b>
-                            <br />
-                            <br />
-
-                            {currentQuestion.answers.map((answer, index) => (
-
-                              <div key={index}>
-
-                                <div className={formatAnswer(answer, currentQuestion, index)}>
-                                  {index === Number(currentQuestion.selectedAnswer) ? "SELECTED: " : null} {answer.description}
-                                </div>
-                              </div>
-
-                            ))}
-
-                          </div>
-                        </li>
-                      )
-                      )}
-                    </ul>
-                  </div>
-                  : null
-
-                }
+                </form>
               </div>
-            </div>
+
+              :
+              null
+            }
+
+
+            {actualValue.quizData.length && actualValue.quizData[actualValue.currentQuestionId] ?
+              <div >
+                <div className={styles.card1}>
+                  <h6> Select the correct answer: </h6>
+                  <h5><b>Question number #{actualValue.currentQuestionId + 1} of #{actualValue.quizData.length}</b></h5>
+                </div>
+
+                <div className={styles.card}>
+                  Question: {actualValue.quizData[actualValue.currentQuestionId].question}
+                </div>
+
+                <div className={styles.cardAnswers}>
+                  <ul style={{ "listStyleType": "none" }} >
+                    {actualValue.quizData[actualValue.currentQuestionId].answers.map((option, index) => <li key={index}> <input type="radio" data-answerid={index} onClick={selectAnswer} /> {option.description}</li>)}
+                  </ul>
+                </div>
+              </div>
+
+              : null
+
+            }
+
+
+            {actualValue.quizData.length && !actualValue.quizData[actualValue.currentQuestionId] ?
+              <div >
+                <div className={styles.cardResult}>
+                  RESULT: {totalCorrectAnswers(actualValue.quizAnswers)} of {actualValue.quizAnswers.length}
+                </div>
+
+                <ul style={{ "listStyleType": "none" }} >
+                  {actualValue.quizAnswers.map((currentQuestion, index) => (
+                    <li key={index}>
+                      <div className={styles.cardSelectedAnswers}>
+                        <b>Question: {currentQuestion.question}</b>
+                        <br />
+                        <br />
+                        {currentQuestion.answers.map((answer, index) => (
+                          <div key={index} className={formatAnswer(answer, currentQuestion, index)}>
+                            {index === Number(currentQuestion.selectedAnswer) ? "SELECTED: " : null} {answer.description}
+                          </div>
+
+                        ))}
+
+                      </div>
+                    </li>
+                  )
+                  )}
+                </ul>
+              </div>
+              : null
+
+            }
           </div>
           <div className="col-lg">
           </div>
         </div>
-        {/* </div> */}
-
-
-
-
+        <div className="row"> </div>
       </div>
     </div >
   );
@@ -215,4 +175,3 @@ export async function getServerSideProps({ query }) {
   // Pass data to the page via props
   return { props: { subjectData, quizData } }
 }
-

@@ -1,6 +1,6 @@
-/* .container {
-  padding: 0 2rem;
-} */
+#__next {
+height: 100%; 
+}
 
 .main {
   min-height: 100vh;
@@ -83,14 +83,33 @@
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  /* max-width: 700px; */
+  width: 650px;
   font-size: 16px;
   margin-top: 5rem;
-  /* align-content: center;
-  align-items: center; */
-  
 }
 
+.card1 {
+  margin-top: 16rem;
+  padding: 1rem;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 26px;
+  color: rgb(255, 255, 255);
+  font-weight: bolder;
+}
+
+.cardResult {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 26px;
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+}
 
 .card:hover,
 .card:focus,
@@ -112,11 +131,11 @@
 
 .body {
   background-image: url("../public/img/background.jpg");
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   position: relative;
-  height: 100vh;
-  width: 100vw;
+  padding: 80px 350px 80px 250px;
+  width: 1240px;
 }
 
 .h6 {
@@ -176,7 +195,7 @@
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  
+  width: 650px;
   
 }
 
@@ -242,13 +261,9 @@
   max-width: 400px;
 }
 
-
-
-
-
 .cardSelectedAnswers {
   margin-bottom: 2rem;
-    padding: 1.5rem;
+  padding: 1.5rem;
   text-align: left;
   font-size: 16px;
   color: rgb(0, 0, 0);
@@ -257,28 +272,12 @@
   border: 2px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 700px;
-  
-  
+  max-width: 700px; 
 }
-
-
-
-
 
 .finalPage {
   background-image: url("../public/img/blackbrick.jpg");
-  /* background-size: cover;
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  background-repeat: repeat;
-  background-position: left top; */
-  
 }
-
-
-
 
 .textSuccess {
   color: green;
@@ -287,8 +286,6 @@
   font-weight: bold;
   background-color: #87a788;
 }
-
-
 
 .textFailed{
   color: rgb(199, 6, 6);
@@ -299,30 +296,9 @@
 }
 
 
-
-
-
-
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.questionsBackground {
+  background-image: url("../public/img/background.jpg"); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
 }
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
-}
-
-
-
