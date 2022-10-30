@@ -50,7 +50,7 @@ export default function Page({ subjectData, quizData }) {
   return (
     <div className={actualValue.quizData.length && actualValue.quizData[actualValue.currentQuestionId] ? styles.questionsBackground : styles.homepage}>
       <Head>
-        <title>Programming</title>
+        <title>Quiz</title>
       </Head>
 
       <div className="container-fluid vh-100">
@@ -63,8 +63,6 @@ export default function Page({ subjectData, quizData }) {
                 <h4><b>Select the Subject:</b></h4>
                 <br />
                 <form action="" method="GET">
-
-
                   <select name="subject" id="subject" className="btn btn-secondary dropdown-toggle">
 
                     {/* {subjectData.map((item) => (
@@ -81,8 +79,6 @@ export default function Page({ subjectData, quizData }) {
 
 
                   </select>
-
-
                   <br />
                   <br />
                   <br />
@@ -161,7 +157,7 @@ export default function Page({ subjectData, quizData }) {
 
 
 export async function getServerSideProps({ query }) {
-  // Fetch data from external API
+  // Fetch data from API
   const subjectResponse = await fetch(`http://localhost:3000/api/v1/subjects`)
   const subjectData = await subjectResponse.json()
 
